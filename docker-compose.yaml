@@ -1,6 +1,5 @@
-version: '3.9'
 
-
+version: '3.9' 
 services:
   kubernetes-container:
     build:
@@ -8,13 +7,23 @@ services:
       dockerfile: Dockerfile
     container_name: kubernetes-container
     tty: true
-    ports: [10001:10001,8081:8081,10002:10002,81:81,80:80]
-    volumes: [./app_data:/app,/var/run/docker.sock:/var/run/docker.sock]
+    ports:
+      - "10001:10001"
+      - "8081:8081"
+      - "10002:10002"
+      - "81:81"
+      - "80:80"
+      - "8001:8001"
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock 
     command: ["sh", "-c", "while :; do sleep 10; done"]
-    image: vamshionrails/kubernetes:v1  # Specify the image version
-
+    image: vamshionrails/kubernetes:v1  # Specify the image version 
 networks:
   host:
     name: host
     external: true
+# networks:
+#   default:
+#     external:
+#       name: bridge
 
