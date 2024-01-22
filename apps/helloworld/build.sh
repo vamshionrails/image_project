@@ -21,3 +21,4 @@ echo "ghcr.io -u $GHCR_USERNAME -p $GHCR_TOKEN" | docker login ghcr.io -u $GHCR_
 
 # Push the Docker image to GitHub Container Registry
 docker push ghcr.io/$GHCR_USERNAME/$IMAGE_NAME:$TAG
+
