@@ -5,8 +5,7 @@ REPO_NAME=image_project
 GITHUB_USERNAME=vamshionrails
 
 # Create a new directory for the Helm charts and navigate into it
-mkdir ../helm-charts
-cd ../helm-charts
+
 
 # Check if the repository already exists
 if [ ! -d .git ]; then
@@ -26,18 +25,19 @@ if [ ! -d .git ]; then
     # You can automate this step using the GitHub API or create it manually via the GitHub website
     
     # Add a remote to your local Git repository pointing to the GitHub repository
-    git remote add origin https://github.com/$GITHUB_USERNAME/$REPO_NAME.git
+    #git remote add origin https://github.com/$GITHUB_USERNAME/$REPO_NAME.git
     
     # Push the changes to the GitHub repository
     git push -u origin master
 else
+    mkdir ../helm-charts
+    cd ../helm-charts
+
     # Repository exists, update Helm chart repository and Git repository
     helm repo index --url https://$GITHUB_USERNAME.github.io/$REPO_NAME --merge index.yaml .
     
     # Commit and push the changes to the existing GitHub repository
-    git add .
-    git commit -m "Update Helm chart repository"
-    git push origin master
+    
 fi
 
 # Enable GitHub Pages for the repository:
@@ -47,3 +47,4 @@ fi
 
 # Once GitHub Pages is enabled, your Helm chart repository will be accessible at:
 # https://$GITHUB_USERNAME.github.io/$REPO_NAME
+ 
