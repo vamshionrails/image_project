@@ -21,7 +21,7 @@ check_config_file:
 	@source ./lib/validation.sh && check_config_file
 
 display_config_file:
-	@source ./lib/display.sh && display_config_file
+	@source ./lib/validation.sh && display_config_file "$(ENV_FILE)"
 
 create_helm_repo:
 	@source ./lib/helm_functions.sh && create_helm_repo
@@ -38,18 +38,20 @@ publish_ghcr:
 clean_helm_packages:
 	@source ./lib/helm_artifacts.sh && clean_helm_packages "$(ENV_FILE)"
 
+.DEFAULT_GOAL := help
+.PHONY: help
 help:
 	@echo "Available targets:"
-	@echo "  - all:          Build, test, and deploy"
-	@echo "  - build:        Build your project"
-	@echo "  - test:         Run tests for your project"
-	@echo "  - deploy:       Deploy your project"
-	@echo "  - backup:       Run backup script"
-	@echo "  - check_config_file: Validate env.json file existence"
-	@echo "  - display_config_file: Display env.json file content"
-	@echo "  - create_helm_repo: Create Helm repository"
-	@echo "  - index_helm_file: Update Helm repository index"
-	@echo "  - helm_packages: Package Helm charts"
-	@echo "  - publish_ghcr: Publish Helm packages to GitHub Container Registry"
-	@echo "  - clean_helm_packages: Clean Helm packages directory"
-	@echo "  - help:         Display this help message"
+	@echo "  - all:          		Build, test, and deploy"
+	@echo "  - build:        		Build your project"
+	@echo "  - test:         		Run tests for your project"
+	@echo "  - deploy:       		Deploy your project"
+	@echo "  - backup:       		Run backup script"
+	@echo "  - check_config_file: 		Validate env.json file existence"
+	@echo "  - display_config_file: 	Display env.json file content"
+	@echo "  - create_helm_repo: 		Create Helm repository"
+	@echo "  - index_helm_file: 		Update Helm repository index"
+	@echo "  - helm_packages: 		Package Helm charts"
+	@echo "  - publish_ghcr: 		Publish Helm packages to GitHub Container Registry"
+	@echo "  - clean_helm_packages: 	Clean Helm packages directory"
+	@echo "  - help:         		Display this help message"

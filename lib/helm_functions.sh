@@ -36,8 +36,13 @@ helm_package() {
         if [ -f "$chart_dir/Chart.yaml" ]; then
             chart_name=$(basename "$chart_dir")
             echo "Helm chart found: $chart_name"
+
+
             helm package "$chart_dir" -d "$HELM_PACKAGE_DIR"
             echo "Helm chart packaged: $chart_dir"
+
+
+
         fi
     done
 }

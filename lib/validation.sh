@@ -13,10 +13,10 @@ check_config_file() {
 
 
 display_config_file() {
-    local ENV_FILE="./configs/env.json"
+    local ENV_FILE="$1"
 
     if [ ! -f "$ENV_FILE" ]; then
-        echo "Error: The env.json file does not exist in the configs folder."
+        echo "Error: The specified environment file does not exist: $ENV_FILE"
         exit 1
     else
         echo "Config file contents:"
