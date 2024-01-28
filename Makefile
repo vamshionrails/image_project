@@ -30,9 +30,8 @@ clean_helm_packages:
 .PHONY: help
 help:
 	@echo "Available targets:"
-	@echo "  - all:          		Build, test, and deploy"
-	@echo "  - check_config_file: 		Validate env.json file existence"
-	@echo "  - display_config_file: 	Display env.json file content"
+	@echo "  - check_config_file: 		Validate env.json config file existence"
+	@echo "  - display_config_file: 	Display env.json config file content"
 	@echo "  - create_helm_repo: 		Create Helm repository"
 	@echo "  - index_helm_file: 		Update Helm repository index"
 	@echo "  - helm_packages: 		Package Helm charts"
