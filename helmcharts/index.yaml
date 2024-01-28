@@ -3,33 +3,33 @@ entries:
   helloworld:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-01-28T08:07:37.700890264Z"
+    created: "2024-01-28T18:05:51.431676801Z"
     description: A Helm chart for Kubernetes
     digest: 657a3839b1bac21b527f701bbd01dd2d2e5be9eb89271d9708a7179191e10482
     name: helloworld
     type: application
     urls:
-    - file://./helmcharts/helm_packages/helloworld-0.1.7.tgz
+    - helloworld-0.1.7.tgz
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-01-28T08:07:37.700585418Z"
+    created: "2024-01-28T18:05:51.249962353Z"
     description: A Helm chart for Kubernetes
     digest: be6eb460c18b783fd392f9ccd31150ab0522ab636d9c9a3fa1ad7d53ec866668
     name: helloworld
     type: application
     urls:
-    - file://./helmcharts/helm_packages/helloworld-0.1.6.tgz
+    - helloworld-0.1.6.tgz
     version: 0.1.6
   vamshi:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-01-28T08:07:37.70120487Z"
+    created: "2024-01-28T18:05:51.689740345Z"
     description: A Helm chart for Kubernetes
     digest: a62205799397a2798b03136912d6b4b72e4cc6d4cfc7775f2134283d55cc96c8
     name: vamshi
     type: application
     urls:
-    - file://./helmcharts/helm_packages/vamshi-1.1.2.tgz
+    - vamshi-1.1.2.tgz
     version: 1.1.2
-generated: "2024-01-28T08:07:37.700162499Z"
+generated: "2024-01-28T18:05:51.689766765Z"
