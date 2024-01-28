@@ -49,20 +49,19 @@ clean_helm_packages() {
 generate_helmfile() {
    local ENV_FILE="$1"
    HELM_CHARTS_DIR=$(jq -r '.HELM_CHARTS_DIR' "$ENV_FILE")
-   HELMFILE_PATH="./helmcharts/helmfile.yaml"   
+   HELMFILE_PATH="./helmcharts/helmfile.yaml"
 
-  if [ -e "$HELMFILE_PATH" ]; then
+   if [ -e "$HELMFILE_PATH" ]; then
         echo "Helmfile already exists at: $HELMFILE_PATH"
     else
-        touch $HELMFILE_PATH
-	echo "Helmfile generated at: $HELMFILE_PATH"
-  fi
-
+        touch "$HELMFILE_PATH"
+        echo "Helmfile generated at: $HELMFILE_PATH"
+   fi
 
    echo "repositories:" > "$HELMFILE_PATH"
 
     for chart_dir in "$HELM_CHARTS_DIR"/*; do
-        if [ -d "$chart_dir" ]; then
+        if [ -d "$chart_dir" ] && [ "$(basename "$chart_dir")" != "helm_packages" ]; then
             chart_name=$(basename "$chart_dir")
             chart_url="https://ghcr.io/vamshionrails/image_project/$chart_name"
 
@@ -71,4 +70,25 @@ generate_helmfile() {
         fi
     done
 
+   # Add releases section
+   echo "releases:" >> "$HELMFILE_PATH"
+
+    for chart_dir in "$HELM_CHARTS_DIR"/*; do
+        if [ -d "$chart_dir" ] && [ "$(basename "$chart_dir")" != "helm_packages" ]; then
+            chart_name=$(basename "$chart_dir")
+            chart_version=$(grep version "$chart_dir/Chart.yaml" | awk '{print $2}' 2>/dev/null || echo "")
+            namespace="vamshi"
+
+            if [ -z "$chart_version" ]; then
+                echo "Skipping $chart_name: Chart.yaml not found or version not specified."
+            else
+                echo "  - name: $chart_name" >> "$HELMFILE_PATH"
+                echo "    namespace: default" >> "$HELMFILE_PATH"
+                echo "    chart: $chart_name" >> "$HELMFILE_PATH"
+                echo "    version: $chart_version" >> "$HELMFILE_PATH"
+                echo "    values:" >> "$HELMFILE_PATH"
+                echo "      - ./$HELM_CHARTS_DIR/$chart_name/values.yaml" >> "$HELMFILE_PATH"
+            fi
+        fi
+    done
 }

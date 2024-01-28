@@ -23,11 +23,11 @@ helm_packages:
 publish_ghcr:
 	@source ./lib/helm_artifacts.sh && publish_to_ghcr "$(ENV_FILE)"
 
-clean_helm_packages:
-	@source ./lib/helm_artifacts.sh && clean_helm_packages "$(ENV_FILE)"
-
 generate_helmfile:
 	@source ./lib/helm_artifacts.sh && generate_helmfile "$(ENV_FILE)"
+
+clean_helm_packages:
+	@source ./lib/helm_artifacts.sh && clean_helm_packages "$(ENV_FILE)"
 
 
 .DEFAULT_GOAL := help
@@ -41,4 +41,5 @@ help:
 	@echo "  - helm_packages: 		Package Helm charts"
 	@echo "  - publish_ghcr: 		Publish Helm packages to GitHub Container Registry"
 	@echo "  - clean_helm_packages: 	Clean Helm packages directory"
+	@echo "  - generate_helmfile		Generate Helmfile"
 	@echo "  - help:         		Display this help message"
