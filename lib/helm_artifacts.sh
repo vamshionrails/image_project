@@ -8,18 +8,19 @@ publish_to_ghcr() {
     echo "Pushing Helm packages to ghcr.io..."
 
     # Read variables from env.json
-    GHCR_USERNAME=$(jq -r '.GHCR_USERNAME' "$ENV_FILE")
-    GHCR_TOKEN=$(jq -r '.GHCR_TOKEN' "$ENV_FILE")
+    #GHCR_USERNAME=$(jq -r '.GHCR_USERNAME' "$ENV_FILE")
+    #GHCR_TOKEN=$(jq -r '.GHCR_TOKEN' "$ENV_FILE")
     HELM_CHARTS_DIR=$(jq -r '.HELM_CHARTS_DIR' "$ENV_FILE")
 
      # Authenticate with GitHub Container Registry
-    echo "${GHCR_TOKEN}" | docker login ghcr.io -u "${GHCR_USERNAME}" --password-stdin
+    #echo "${GHCR_TOKEN}" | docker login ghcr.io -u "${GHCR_USERNAME}" --password-stdin
 
     # Check if any .tgz files exist in the specified directory
     if [ -n "$(find "${HELM_CHARTS_DIR}/helm_packages" -maxdepth 1 -name '*.tgz' -print -quit)" ]; then
         # Iterate over each packaged Helm chart and push to ghcr.io using helm push
         for chart in "${HELM_CHARTS_DIR}"/helm_packages/*.tgz; do
-          helm push "${chart}" oci://ghcr.io/vamshionrails/image_project
+          #helm push "${chart}" oci://ghcr.io/vamshionrails/image_project
+          cr upload --config "configs/cr_config.yaml" --skip-existing
         done
 
         echo "Helm packages pushed to ghcr.io!"
