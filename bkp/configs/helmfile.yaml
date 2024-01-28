@@ -1,0 +1,6 @@
+releases:
+- name: helloworld
+  chart: github.com/vamshionrails/image_project/helloworld
+  version: latest
+  values:
+    - my-values.yaml

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "vamshi.fullname" . }}-test-connection"
+  labels:
+    {{- include "vamshi.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "vamshi.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

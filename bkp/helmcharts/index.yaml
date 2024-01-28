@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  helloworld:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-01-28T01:39:18.282696503Z"
+    description: A Helm chart for Kubernetes
+    digest: 0762cf22612e5b2096c973143dcb7fffeaaaf195807c8029b2251dfadd6955dd
+    name: helloworld
+    type: application
+    urls:
+    - https://github.com/vamshionrails/image_project/helmcharts/helloworld-0.1.1.tgz
+    version: 0.1.1
+generated: "2024-01-28T01:39:18.282083659Z"
