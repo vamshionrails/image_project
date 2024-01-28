@@ -1,18 +1,15 @@
 repositories:
   - name: helloworld
-    url: https://vamshionrails.github.io/image_project/helmcharts/helloworld
+    url: https://vamshionrails.github.io/image_project/helmcharts/
   - name: vamshi
-    url: https://vamshionrails.github.io/image_project/helmcharts/vamshi
+    url: https://vamshionrails.github.io/image_project/helmcharts/
 releases:
-  - name: helloworld
-    namespace: default
-    chart: helloworld
-    version: Application
-    values:
-      - ././helmcharts/helloworld/values.yaml
   - name: vamshi
-    namespace: default
+    namespace: vamshi
     chart: vamshi
-    version: Application
-    values:
-      - ././helmcharts/vamshi/values.yaml
+    version: 1.1.2
+
+  - name: helloworld
+    namespace: vamshi
+    chart: helloworld
+    version: 0.1.7
