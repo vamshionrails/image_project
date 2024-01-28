@@ -26,6 +26,10 @@ publish_ghcr:
 clean_helm_packages:
 	@source ./lib/helm_artifacts.sh && clean_helm_packages "$(ENV_FILE)"
 
+generate_helmfile:
+	@source ./lib/helm_artifacts.sh && generate_helmfile "$(ENV_FILE)"
+
+
 .DEFAULT_GOAL := help
 .PHONY: help
 help:

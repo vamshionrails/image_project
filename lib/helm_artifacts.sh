@@ -44,6 +44,31 @@ clean_helm_packages() {
     else
         echo "No .tgz files found in ${HELM_CHARTS_DIR}. Check the packaging step."
     fi
+}
 
+generate_helmfile() {
+   local ENV_FILE="$1"
+   HELM_CHARTS_DIR=$(jq -r '.HELM_CHARTS_DIR' "$ENV_FILE")
+   HELMFILE_PATH="./helmcharts/helmfile.yaml"   
+
+  if [ -e "$HELMFILE_PATH" ]; then
+        echo "Helmfile already exists at: $HELMFILE_PATH"
+    else
+        touch $HELMFILE_PATH
+	echo "Helmfile generated at: $HELMFILE_PATH"
+  fi
+
+
+   echo "repositories:" > "$HELMFILE_PATH"
+
+    for chart_dir in "$HELM_CHARTS_DIR"/*; do
+        if [ -d "$chart_dir" ]; then
+            chart_name=$(basename "$chart_dir")
+            chart_url="https://ghcr.io/vamshionrails/image_project/$chart_name"
+
+            echo "  - name: $chart_name" >> "$HELMFILE_PATH"
+            echo "    url: $chart_url" >> "$HELMFILE_PATH"
+        fi
+    done
 
 }

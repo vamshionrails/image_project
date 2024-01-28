@@ -13,7 +13,7 @@ update_helm_repo_index() {
     fi
 
     # Create or update the Helm repository index
-    helm repo index "$HELM_CHARTS_DIR" --url "file://$HELM_CHARTS_DIR"
+    helm repo index "$HELM_CHARTS_DIR" --url "file://$HELM_CHARTS_DIR" --merge "$HELM_CHARTS_DIR/index.yaml"
     echo "Helm repository index updated in $HELM_CHARTS_DIR."
 }
 

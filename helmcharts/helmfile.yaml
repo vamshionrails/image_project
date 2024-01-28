@@ -1,0 +1,7 @@
+repositories:
+  - name: helloworld
+    url: https://ghcr.io/vamshionrails/image_project/helloworld
+  - name: helm_packages
+    url: https://ghcr.io/vamshionrails/image_project/helm_packages
+  - name: vamshi
+    url: https://ghcr.io/vamshionrails/image_project/vamshi
