@@ -1,5 +1,27 @@
 #!/bin/bash
 
+update_helm_repo_index() {
+    local ENV_FILE="$1"
+
+    # Read variables from env.json
+    HELM_CHARTS_DIR=$(jq -r '.HELM_CHARTS_DIR' "$ENV_FILE")
+    CR_TOKEN=$(jq -r '.GHCR_TOKEN' "$ENV_FILE")
+    # Check if the index.yaml file exists
+    if [ ! -f "$HELM_CHARTS_DIR/index.yaml" ]; then
+        # Create the index.yaml file if it doesn't exist
+        touch "$HELM_CHARTS_DIR/index.yaml"
+        echo "index.yaml created: $HELM_CHARTS_DIR/index.yaml"
+    else
+        echo "index.yaml already exists: $HELM_CHARTS_DIR/index.yaml"
+    fi
+
+    # Create or update the Helm repository index
+    #helm repo index "$HELM_CHARTS_DIR" --url "file://$HELM_CHARTS_DIR" --merge "$HELM_CHARTS_DIR/index.yaml"
+    #echo "Helm repository index updated in $HELM_CHARTS_DIR."
+    # Use cr to update the index in the charts repository
+    cr index --config "configs/cr_config.yaml" --packages-with-index --index-path "$HELM_CHARTS_DIR"
+    echo "Chart Releaser index updated in $HELM_CHARTS_DIR."
+}
 
 
 helm_package() {
@@ -32,10 +54,9 @@ helm_package() {
 }
 
 
-helm_repo_function() {
+create_helm_repo() {
     local ENV_FILE="$1"
     HELM_CHARTS_DIR=$(jq -r '.HELM_CHARTS_DIR' "$ENV_FILE")
-
     echo "Helm charts Directory: ${HELM_CHARTS_DIR}"
 
     # Check if the helmcharts folder exists
@@ -43,30 +64,14 @@ helm_repo_function() {
         # Create the helmcharts folder if it doesn't exist
         mkdir -p "$HELM_CHARTS_DIR"
         echo "Helm charts directory created: $HELM_CHARTS_DIR"
+        update_helm_repo_index
     else
         echo "Helm charts directory already exists: $HELM_CHARTS_DIR"
+        update_helm_repo_index
+        echo "Helm repository updated! $HELM_CHARTS_DIR."
     fi
 
-    # Check if the index.yaml file exists
-    if [ ! -f "$HELM_CHARTS_DIR/index.yaml" ]; then
-        # Create the index.yaml file if it doesn't exist
-        touch "$HELM_CHARTS_DIR/index.yaml"
-        echo "index.yaml created: $HELM_CHARTS_DIR/index.yaml"
-    else
-        echo "index.yaml already exists: $HELM_CHARTS_DIR/index.yaml"
-    fi
-
-    # Read variables from env.json
-    CR_TOKEN=$(jq -r '.GHCR_TOKEN' "$ENV_FILE")
-
-    # Create or update the Helm repository index using Chart Releaser
-    cr index --config "configs/cr_config.yaml" --packages-with-index --index-path "$HELM_CHARTS_DIR"
-    echo "Chart Releaser index updated in $HELM_CHARTS_DIR."
-
-    # Display a message based on whether the directory was created or updated
-    action_message="Helm charts directory created"
-    [ -d "$HELM_CHARTS_DIR" ] && action_message="Helm repository updated"
-
-    echo "$action_message successfully in $HELM_CHARTS_DIR."
 }
 
+# Source the helm_artifacts.sh file
+source ./lib/helm_artifacts.sh

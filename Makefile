@@ -12,7 +12,7 @@ display_config_file:
 	@source ./lib/validation.sh && display_config_file "$(ENV_FILE)"
 
 create_helm_repo:
-	@source ./lib/helm_functions.sh && create_helm_repo
+	@source ./lib/helm_functions.sh && helm_repo_function "$(ENV_FILE)"
 
 index_helm_file:
 	@source ./lib/helm_functions.sh && update_helm_repo_index

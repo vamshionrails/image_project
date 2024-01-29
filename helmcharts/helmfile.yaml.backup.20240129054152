@@ -5,14 +5,14 @@ repositories:
     url: https://ghcr.io/vamshionrails/image_project/vamshi
 releases:
   - name: helloworld
-    namespace: vamshi
+    namespace: default
     chart: helloworld
     version: 0.1.8
     values:
-      - ./configs/helloworld_0.1.8_values.yaml
+      - ././helmcharts/helloworld/values.yaml
   - name: vamshi
-    namespace: vamshi
+    namespace: default
     chart: vamshi
     version: 1.1.2
     values:
-      - ./configs/vamshi_1.1.2_values.yaml
+      - ././helmcharts/vamshi/values.yaml

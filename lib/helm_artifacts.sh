@@ -51,6 +51,18 @@ generate_helmfile() {
    local ENV_FILE="$1"
    HELM_CHARTS_DIR=$(jq -r '.HELM_CHARTS_DIR' "$ENV_FILE")
    HELMFILE_PATH="./helmcharts/helmfile.yaml"
+   
+  # Create a backup copy with a timestamp
+    backup_timestamp=$(date +"%Y%m%d%H%M%S")
+    backup_file="$HELMFILE_PATH.backup.$backup_timestamp"
+    if [ -e "$HELMFILE_PATH" ]; then
+        # Backup the existing helmfile.yaml
+        cp "$HELMFILE_PATH" "$backup_file"
+        echo "Backup created at: $backup_file"
+    fi
+
+    # Move the helmfile.yaml to HELM_CHARTS_DIR
+    mv "$HELMFILE_PATH" "$HELM_CHARTS_DIR"
 
    if [ -e "$HELMFILE_PATH" ]; then
         echo "Helmfile already exists at: $HELMFILE_PATH"
@@ -65,7 +77,6 @@ generate_helmfile() {
         if [ -d "$chart_dir" ] && [ "$(basename "$chart_dir")" != "helm_packages" ]; then
             chart_name=$(basename "$chart_dir")
             chart_url="https://ghcr.io/vamshionrails/image_project/$chart_name"
-
             echo "  - name: $chart_name" >> "$HELMFILE_PATH"
             echo "    url: $chart_url" >> "$HELMFILE_PATH"
         fi
@@ -77,18 +88,20 @@ generate_helmfile() {
     for chart_dir in "$HELM_CHARTS_DIR"/*; do
         if [ -d "$chart_dir" ] && [ "$(basename "$chart_dir")" != "helm_packages" ]; then
             chart_name=$(basename "$chart_dir")
-            chart_version=$(grep version "$chart_dir/Chart.yaml" | awk '{print $2}' 2>/dev/null || echo "")
+            chart_version=$(grep version: "$chart_dir/Chart.yaml" | awk '{print $2}' 2>/dev/null || echo "")
             namespace="vamshi"
+            
+            echo "CHART VERSION ${chart_version}"
 
             if [ -z "$chart_version" ]; then
                 echo "Skipping $chart_name: Chart.yaml not found or version not specified."
             else
                 echo "  - name: $chart_name" >> "$HELMFILE_PATH"
-                echo "    namespace: default" >> "$HELMFILE_PATH"
+                echo "    namespace: $namespace" >> "$HELMFILE_PATH"
                 echo "    chart: $chart_name" >> "$HELMFILE_PATH"
                 echo "    version: $chart_version" >> "$HELMFILE_PATH"
                 echo "    values:" >> "$HELMFILE_PATH"
-                echo "      - ./$HELM_CHARTS_DIR/$chart_name/values.yaml" >> "$HELMFILE_PATH"
+                echo "      - ./configs/${chart_name}_${chart_version}_values.yaml" >> "$HELMFILE_PATH"
             fi
         fi
     done

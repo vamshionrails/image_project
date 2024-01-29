@@ -9,10 +9,10 @@ releases:
     chart: helloworld
     version: 0.1.8
     values:
-      - ./configs/helloworld_0.1.8_values.yaml
+      - ./configs/helloworld_values.yaml
   - name: vamshi
     namespace: vamshi
     chart: vamshi
     version: 1.1.2
     values:
-      - ./configs/vamshi_1.1.2_values.yaml
+      - ./configs/vamshi_values.yaml

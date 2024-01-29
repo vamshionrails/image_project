@@ -1,6 +1,6 @@
 owner: vamshionrails
 git-repo: image_project
 package-path: helmcharts/helm_packages
-token: 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
+token: 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
 git-base-url: https://api.github.com/
 git-upload-url: https://uploads.github.com/
