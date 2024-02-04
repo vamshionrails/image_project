@@ -1,2 +1,3 @@
 # Ignore generated files
 helmcharts/helm_packages/*.tgz
+configs/*.yaml
