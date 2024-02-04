@@ -20,7 +20,9 @@ publish_to_ghcr() {
         # Iterate over each packaged Helm chart and push to ghcr.io using helm push
         for chart in "${HELM_CHARTS_DIR}"/helm_packages/*.tgz; do
           #helm push "${chart}" oci://ghcr.io/vamshionrails/image_project
-          cr upload --config "configs/cr_config.yaml" --skip-existing
+          cr upload --config "./configs/cr_config.yaml" --skip-existing
+          cr index  --index-path  "${HELM_CHARTS_DIR}" --config configs/cr_config.yaml
+          git add "${HELM_CHARTS_DIR}/index.yaml" ; git commit -m "indexed"; git push
         done
 
         echo "Helm packages pushed to ghcr.io!"

@@ -21,12 +21,11 @@ helm_package() {
             chart_name=$(basename "$chart_dir")
             echo "Helm chart found: $chart_name"
 
-            cr upload --config config.yaml
+            #cr upload --config config.yaml
+             cr package "$chart_dir" -p "$HELM_PACKAGE_DIR"
             #helm package "$chart_dir" -d "$HELM_PACKAGE_DIR"
             echo "Helm chart packaged: $chart_dir"
-
-
-
+            
         fi
     done
 }

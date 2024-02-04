@@ -2,7 +2,7 @@
 
 # Define the path to env.json
 ENV_FILE := ./configs/env.json
-
+CR_CONFIG_FILE := ./configs/cr_config.yaml
 all: build test deploy
 
 check_config_file:
