@@ -1,0 +1,11 @@
+# helmfile.yaml
+
+repositories:
+  - name: helloworld
+    url:  https://vamshionrails.github.io/image_project/helmcharts
+
+releases:
+  - name: helloworld
+    namespace: test
+    chart: helloworld/helloworld
+    version: 0.1.8
