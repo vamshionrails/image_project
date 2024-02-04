@@ -3,7 +3,7 @@ entries:
   helloworld:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-04T16:14:16.138730013Z"
+    created: "2024-02-04T16:14:18.852378946Z"
     description: A Helm chart for Kubernetes
     digest: 73d22983c707158f4e700af02221c4d6e7d990b853c7fa49838c93fb0eefb51f
     name: helloworld
@@ -13,7 +13,7 @@ entries:
     version: 0.1.9
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-04T16:14:16.023875372Z"
+    created: "2024-02-04T16:14:18.733559217Z"
     description: A Helm chart for Kubernetes
     digest: 39ba5c6d56369ffdaf944f828a3547522518c2f402d348a56718855d97face8e
     name: helloworld
@@ -24,7 +24,7 @@ entries:
   vamshi:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-04T16:14:16.252763681Z"
+    created: "2024-02-04T16:14:19.015773874Z"
     description: A Helm chart for Kubernetes
     digest: 5502d10c8d8f805b486b9f62521ede2b61b16056f25d20927350b8007b71067a
     name: vamshi
@@ -32,4 +32,4 @@ entries:
     urls:
     - https://github.com/vamshionrails/image_project/releases/download/vamshi-1.1.2/vamshi-1.1.2.tgz
     version: 1.1.2
-generated: "2024-02-04T16:14:16.252788151Z"
+generated: "2024-02-04T16:14:19.015801384Z"
