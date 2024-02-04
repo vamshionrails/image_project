@@ -1,6 +1,0 @@
-repositories:
-  - name: helloworld
-    url: https://ghcr.io/vamshionrails/image_project/helloworld
-  - name: vamshi
-    url: https://ghcr.io/vamshionrails/image_project/vamshi
-releases:
