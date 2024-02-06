@@ -1,0 +1,12 @@
+# templates/persistentvolumeclaim.yaml
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-ebs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.ebsVolume.size }}

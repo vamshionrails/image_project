@@ -1,0 +1,9 @@
+# values.yaml
+
+ebsVolume:
+  volumeID: vol-xxxxxxxxxxxxxxxxx
+  size: 10Gi
+  fsType: ext4
+
+service:
+  port: 80

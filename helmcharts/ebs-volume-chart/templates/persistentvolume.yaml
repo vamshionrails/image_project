@@ -1,0 +1,15 @@
+# templates/persistentvolume.yaml
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Release.Name }}-ebs-volume
+spec:
+  capacity:
+    storage: {{ .Values.ebsVolume.size }}
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  awsElasticBlockStore:
+    volumeID: {{ .Values.ebsVolume.volumeID }}
+    fsType: {{ .Values.ebsVolume.fsType }}
